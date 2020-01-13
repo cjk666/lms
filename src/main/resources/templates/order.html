@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+	<!-- layui -->
+	<link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css"  th:href="@{/layui/css/layui.css}" />
+	<script type="text/javascript" src="../static/layui/layui.js"  th:src="@{/layui/layui.js}"></script>
+	<!-- js -->
+	<script type="text/javascript" src="../static/js/order.js"  th:src="@{/js/order.js}"></script>
+</head>
+<body>
+ 
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+	<!-- 添加用户弹出层 -->
+	<div id="user-layer"  style="display: none;" padding: 20px">
+		<form id="form" class="layui-form layui-form-pane" lay-filter="form">
+		
+			<input type="hidden" name="orderId" class="layui-input"/>
+			
+			<div class="layui-form-item">
+				<label class="layui-form-label">发货地址</label>
+				<div class="layui-input-block">
+					<input type="text" name="sendSite" class="layui-input" placeholder="xx省xx市xx县xx镇，具体到xxx号" lay-verify="required" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">收货地址</label>
+				<div class="layui-input-block">
+					<input type="text" name="receSite" class="layui-input"  placeholder="xx省xx市xx县xx镇，具体到xxx号" lay-verify="required" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">发货人</label>
+				<div class="layui-input-block">
+					<input type="text" name="sendName" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">发货单位</label>
+				<div class="layui-input-block">
+					<input type="text" name="sendUnit" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">发货人联系电话</label>
+				<div class="layui-input-block">
+					<input type="text" name="sendPhone" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">发货时间</label>
+			    <div class="layui-input-block">
+			        <input type="date" name="sendDate" id="date1" autocomplete="off" class="layui-input">
+			    </div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">收货人</label>
+				<div class="layui-input-block">
+					<input type="text" name="receName" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">收货单位</label>
+				<div class="layui-input-block">
+					<input type="text" name="receUnit" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">收货人联系电话</label>
+				<div class="layui-input-block">
+					<input type="text" name="recePhone" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">总计费用</label>
+				<div class="layui-input-block">
+					<input type="text" name="totalFee" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">备注</label>
+				<div class="layui-input-block">
+					<input type="text" name="remark" class="layui-input" lay-verify="required" autocomplete="off" />
+				</div>
+			</div>
+			 <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit="lay-submit" lay-filter="save_form">立即提交</button>
+			      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			    </div>
+			 </div>
+		</form>
+	</div>
+
+
+<script type="text/html" id="toolbarDemo">
+  <div class="layui-btn-container">
+    <button class="layui-btn layui-btn-sm layui-anim" lay-event="add" data-anim="layui-anim-scale">新增数据</button>
+    <button class="layui-btn layui-btn-sm layui-anim" lay-event="addMore" data-anim="layui-anim-scale">批量导入</button>
+	<button class="layui-btn layui-btn-sm layui-anim" lay-event="deleteMore" data-anim="layui-anim-scale">批量删除</button>
+    <button class="layui-btn layui-btn-sm layui-anim" lay-event="saveRole" data-anim="layui-anim-scale">分配角色</button>
+  </div>
+</script>
+
+	<script type="text/html" id="barDemo">
+		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+</body>
+</html>
