@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <title>Insert title here</title>
 	<!-- layui -->
-	<link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css"  th:href="@{/layui/css/layui.css}" />
+	<link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css" media="all" th:href="@{/layui/css/layui.css}" />
 	<script type="text/javascript" src="../static/layui/layui.js"  th:src="@{/layui/layui.js}"></script>
 	<!-- js -->
 	<script type="text/javascript" src="../static/js/order.js"  th:src="@{/js/order.js}"></script>
@@ -20,55 +20,55 @@
 			<input type="hidden" name="orderId" class="layui-input"/>
 			
 			<div class="layui-form-item">
-				<label class="layui-form-label">发货地址</label>
+				<label class="layui-form-label">寄件地址</label>
 				<div class="layui-input-block">
 					<input type="text" name="sendSite" class="layui-input" placeholder="xx省xx市xx县xx镇，具体到xxx号" lay-verify="required" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">收货地址</label>
+				<label class="layui-form-label">收件地址</label>
 				<div class="layui-input-block">
 					<input type="text" name="receSite" class="layui-input"  placeholder="xx省xx市xx县xx镇，具体到xxx号" lay-verify="required" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">发货人</label>
+				<label class="layui-form-label">寄件人</label>
 				<div class="layui-input-block">
 					<input type="text" name="sendName" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">发货单位</label>
+				<label class="layui-form-label">寄件单位</label>
 				<div class="layui-input-block">
 					<input type="text" name="sendUnit" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">发货人联系电话</label>
+				<label class="layui-form-label">寄件人电话</label>
 				<div class="layui-input-block">
 					<input type="text" name="sendPhone" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">发货时间</label>
+				<label class="layui-form-label">寄件时间</label>
 			    <div class="layui-input-block">
-			        <input type="date" name="sendDate" id="date1" autocomplete="off" class="layui-input">
+			        <input type="text" name="sendDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
 			    </div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">收货人</label>
+				<label class="layui-form-label">收件人</label>
 				<div class="layui-input-block">
 					<input type="text" name="receName" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">收货单位</label>
+				<label class="layui-form-label">收件单位</label>
 				<div class="layui-input-block">
 					<input type="text" name="receUnit" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">收货人联系电话</label>
+				<label class="layui-form-label">收件人电话</label>
 				<div class="layui-input-block">
 					<input type="text" name="recePhone" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>

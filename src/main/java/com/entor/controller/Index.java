@@ -10,5 +10,14 @@ public class Index {
 	public String index() {
 		return "index";
 	}
+
+	@RequestMapping("/order")
+	public String order() {
+		return "order";
+	}
 	
+	@RequestMapping("/cargo")
+	public String cargo() {
+		return "cargo";
+	}
 }

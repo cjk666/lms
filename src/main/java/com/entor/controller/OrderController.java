@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.entor.entity.Cargo;
 import com.entor.entity.Order;
 import com.entor.entity.Result;
 import com.entor.service.IOrderService;
@@ -73,11 +75,6 @@ public class OrderController {
 		return new Result(0,list.size()+"条数据删除成功！");
 	}
 	
-	@RequestMapping("/order")
-	public String order() {
-		return "order";
-	}
-	
 	@RequestMapping("/queryByPage")
 	@ResponseBody
 	public Map<String, Object> queryByPage(@RequestParam(name = "limit",required = false, defaultValue = "1")int currentPage,
@@ -85,10 +82,24 @@ public class OrderController {
 		Page<Order> page = new Page<>(currentPage, pageSize);
 		Page<Order> list = orderService.page(page);
 		Map<String, Object> map = new HashMap<>();
-		map.put("count", orderService.count());
+		map.put("count", list.getTotal());
 		map.put("code", 0);
 		map.put("msg", "");
 		map.put("data",list.getRecords());
+		return map;
+	}
+	
+	@RequestMapping("queryByMap")
+	public Map<String, Object> queryByMap(String q, @RequestParam(name = "limit",required = false, defaultValue = "1")int currentPage,
+			@RequestParam(name = "page",required = false, defaultValue = "20" )int pageSize){
+		QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
+		queryWrapper.like(true, "cargo_name", q);
+		Page<Order> page = orderService.page(new Page<Order>(currentPage, pageSize), queryWrapper);
+		Map<String, Object> map = new HashMap<>();
+		map.put("count", page.getTotal());
+		map.put("code", 0);
+		map.put("msg", "");
+		map.put("data",page.getRecords());
 		return map;
 	}
 	

@@ -1,6 +1,7 @@
 package com.entor.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -22,8 +23,8 @@ public class Cargo implements Serializable {
     /**
      * 主键编号
      */
-    @TableId(value = "cargo_id", type = IdType.AUTO)
-    private Integer cargoId;
+    @TableId(value = "cargo_id", type = IdType.ASSIGN_UUID)
+    private String cargoId;
 
     /**
      * 货物名称
@@ -48,14 +49,15 @@ public class Cargo implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
 
-    public Integer getCargoId() {
+    public String getCargoId() {
         return cargoId;
     }
 
-    public void setCargoId(Integer cargoId) {
+    public void setCargoId(String cargoId) {
         this.cargoId = cargoId;
     }
 

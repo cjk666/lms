@@ -7,6 +7,15 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 		var form = layui.form;
 		var laydate = layui.laydate;
 		$ = layui.$;
+		
+		//日期
+		  laydate.render({
+		    elem: '#date'
+		  });
+		  laydate.render({
+		    elem: '#date1'
+		  });
+		
 		table.render({
 		    elem: '#test'
 		    ,id: 'order'
