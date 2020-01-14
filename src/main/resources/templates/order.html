@@ -82,7 +82,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">备注</label>
 				<div class="layui-input-block">
-					<input type="text" name="remark" class="layui-input" lay-verify="required" autocomplete="off" />
+					<textarea placeholder="请输入内容" class="layui-textarea" name="remark"></textarea>
 				</div>
 			</div>
 			 <div class="layui-form-item">
@@ -93,14 +93,26 @@
 			 </div>
 		</form>
 	</div>
+	<div class="layui-layout layui-layout-admin">
+		<div class="layui-body">
+			<div class="layui-form-item">
+				  <div class="layui-inline">
+				    <label class="layui-form-label">请选择日期:</label>
+				    <div class="layui-input-inline" style="width: 100px;">
+				      <input type="text" id="beginDate" placeholder="开始日期" autocomplete="off" class="layui-input">
+				    </div>
+				  </div>
+				  <div class="layui-inline">
+				      <button type="button" class="layui-btn" id="search_btn">搜索</button>
+				  </div>
+			</div>
+		</div>
+	</div>
 
 
 <script type="text/html" id="toolbarDemo">
   <div class="layui-btn-container">
     <button class="layui-btn layui-btn-sm layui-anim" lay-event="add" data-anim="layui-anim-scale">新增数据</button>
-    <button class="layui-btn layui-btn-sm layui-anim" lay-event="addMore" data-anim="layui-anim-scale">批量导入</button>
-	<button class="layui-btn layui-btn-sm layui-anim" lay-event="deleteMore" data-anim="layui-anim-scale">批量删除</button>
-    <button class="layui-btn layui-btn-sm layui-anim" lay-event="saveRole" data-anim="layui-anim-scale">分配角色</button>
   </div>
 </script>
 
