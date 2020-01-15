@@ -23,8 +23,8 @@ public class Order implements Serializable {
     /**
      * 订单号
      */
-    @TableId(value = "order_id", type = IdType.AUTO)
-    private Integer orderId;
+    @TableId(value = "order_id", type = IdType.ASSIGN_ID)
+    private String orderId;
 
     /**
      * 发货地址
@@ -52,12 +52,6 @@ public class Order implements Serializable {
     private String sendPhone;
 
     /**
-     * 发货日期
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date sendDate;
-
-    /**
      * 收货人姓名
      */
     private String receName;
@@ -74,9 +68,9 @@ public class Order implements Serializable {
 
 
     /**
-     * 总计费用
+     * 订单状态
      */
-    private Double totalFee;
+    private Integer orderStatue;
 
     /**
      * 备注
@@ -90,15 +84,16 @@ public class Order implements Serializable {
     private Date createTime;
 
 
-    public Integer getOrderId() {
-        return orderId;
-    }
 
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
+    public String getOrderId() {
+		return orderId;
+	}
 
-    public String getSendSite() {
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public String getSendSite() {
         return sendSite;
     }
 
@@ -138,14 +133,6 @@ public class Order implements Serializable {
         this.sendPhone = sendPhone;
     }
 
-    public Date getSendDate() {
-        return sendDate;
-    }
-
-    public void setSendDate(Date sendDate) {
-        this.sendDate = sendDate;
-    }
-
     public String getReceName() {
         return receName;
     }
@@ -170,16 +157,15 @@ public class Order implements Serializable {
         this.recePhone = recePhone;
     }
 
+    public Integer getOrderStatue() {
+		return orderStatue;
+	}
 
-    public Double getTotalFee() {
-        return totalFee;
-    }
+	public void setOrderStatue(Integer orderStatue) {
+		this.orderStatue = orderStatue;
+	}
 
-    public void setTotalFee(Double totalFee) {
-        this.totalFee = totalFee;
-    }
-
-    public String getRemark() {
+	public String getRemark() {
         return remark;
     }
 
@@ -194,4 +180,14 @@ public class Order implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", sendSite=" + sendSite + ", receSite=" + receSite + ", sendName="
+				+ sendName + ", sendUnit=" + sendUnit + ", sendPhone=" + sendPhone + ", receName=" + receName
+				+ ", receUnit=" + receUnit + ", recePhone=" + recePhone + ", orderStatue=" + orderStatue + ", remark="
+				+ remark + ", createTime=" + createTime + "]";
+	}
+    
 }
+

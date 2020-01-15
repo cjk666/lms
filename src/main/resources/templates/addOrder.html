@@ -1,41 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Insert title here</title>
+</head>
 	<!-- layui -->
 	<link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css" media="all" th:href="@{/layui/css/layui.css}" />
 	<script type="text/javascript" src="../static/layui/layui.js"  th:src="@{/layui/layui.js}"></script>
 	<!-- js -->
 	<script type="text/javascript" src="../static/js/order.js"  th:src="@{/js/order.js}"></script>
-</head>
 <body>
- 
- <div class="demoTable">
-	 订单编号：
-	  <div class="layui-inline">
-	    <input class="layui-input" name="orderId" id="id" autocomplete="off">
-	  </div>
-	  收货人手机：
-	  <div class="layui-inline">
-	    <input class="layui-input" name="sendPhone" id="sendPhone" autocomplete="off">
-	  </div>
-	  发货人手机：
-	  <div class="layui-inline">
-	    <input class="layui-input" name="recePhone" id="recePhone" autocomplete="off">
-	  </div>
-	  <button class="layui-btn" data-type="reload">搜索</button>
-</div>
-
-<table class="layui-hide" id="test" lay-filter="test"></table>
-
-	<!-- 添加用户弹出层 -->
-	<div id="user-layer"  style="display: none;" padding: 20px">
+	
+	<div id="user-layer" padding: 20px">
 		<form id="form" class="layui-form layui-form-pane" lay-filter="form">
 		
 			<input type="hidden" name="orderId" class="layui-input"/>
-			<!-- 隐藏域 默认是：  0订单已确认 -->
-			<input type="hidden" name="orderStatue" value="0" class="layui-input"/>
 			
 			<div class="layui-form-item">
 				<label class="layui-form-label">寄件地址</label>
@@ -66,6 +45,12 @@
 				<div class="layui-input-block">
 					<input type="text" name="sendPhone" class="layui-input" lay-verify="required" autocomplete="off" />
 				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">寄件时间</label>
+			    <div class="layui-input-block">
+			        <input type="text" name="sendDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+			    </div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">收件人</label>
@@ -99,17 +84,6 @@
 			 </div>
 		</form>
 	</div>
-
-	<script type="text/html" id="barDemo">
-		<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-	</script>
-	<script type="text/html" id="toolbarDemo">
-  		<div class="layui-btn-container">
-    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="add" data-anim="layui-anim-scale">新增订单</button>
-    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="deleteMore" data-anim="layui-anim-scale">批量删除</button>
-    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="addMore" data-anim="layui-anim-scale">批量导入</button>
-  		</div>
-	</script>
+	
 </body>
 </html>

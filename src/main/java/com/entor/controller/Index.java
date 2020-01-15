@@ -16,6 +16,11 @@ public class Index {
 		return "order";
 	}
 	
+	@RequestMapping("/addOrder")
+	public String addOrder() {
+		return "addOrder";
+	}
+	
 	@RequestMapping("/cargo")
 	public String cargo() {
 		return "cargo";

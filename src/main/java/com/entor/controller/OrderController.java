@@ -77,30 +77,28 @@ public class OrderController {
 	
 	@RequestMapping("/queryByPage")
 	@ResponseBody
-	public Map<String, Object> queryByPage(@RequestParam(name = "limit",required = false, defaultValue = "1")int currentPage,
-			@RequestParam(name = "page",required = false, defaultValue = "20" )int pageSize) {
+	public Map<String, Object> queryByPage(@RequestParam(value="limit",required=false,defaultValue="20") int pageSize,
+			@RequestParam(value="page",required=false,defaultValue="1") int currentPage
+			,String orderId, String sendPhone, String recePhone) {
+		QueryWrapper<Order> qw = new QueryWrapper<>();
+		qw.like(is(orderId) ,"order_id", orderId);
+		qw.like(is(sendPhone) ,"send_phone", sendPhone);
+		qw.like(is(recePhone),"rece_phone", recePhone);
 		Page<Order> page = new Page<>(currentPage, pageSize);
-		Page<Order> list = orderService.page(page);
+		Page<Order> list = orderService.page(page,qw);
 		Map<String, Object> map = new HashMap<>();
-		map.put("count", list.getTotal());
+		map.put("count", orderService.count(qw));
 		map.put("code", 0);
 		map.put("msg", "");
 		map.put("data",list.getRecords());
 		return map;
 	}
 	
-	@RequestMapping("queryByMap")
-	public Map<String, Object> queryByMap(String q, @RequestParam(name = "limit",required = false, defaultValue = "1")int currentPage,
-			@RequestParam(name = "page",required = false, defaultValue = "20" )int pageSize){
-		QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
-		queryWrapper.like(true, "cargo_name", q);
-		Page<Order> page = orderService.page(new Page<Order>(currentPage, pageSize), queryWrapper);
-		Map<String, Object> map = new HashMap<>();
-		map.put("count", page.getTotal());
-		map.put("code", 0);
-		map.put("msg", "");
-		map.put("data",page.getRecords());
-		return map;
+	public boolean is(String str) {
+		if (str != null && str != "") {
+			return true;
+		}
+		return false;
 	}
 	
 	@InitBinder

@@ -22,8 +22,8 @@ public class Truck implements Serializable {
     /**
      * 主键编号
      */
-    @TableId(value = "truck_id", type = IdType.AUTO)
-    private Integer truckId;
+    @TableId(value = "truck_id", type = IdType.ASSIGN_UUID)
+    private String truckId;
 
     /**
      * 车型名称
@@ -66,11 +66,11 @@ public class Truck implements Serializable {
     private Integer driverId;
 
 
-    public Integer getTruckId() {
+    public String getTruckId() {
         return truckId;
     }
 
-    public void setTruckId(Integer truckId) {
+    public void setTruckId(String truckId) {
         this.truckId = truckId;
     }
 

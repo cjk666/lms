@@ -22,8 +22,8 @@ public class Emp implements Serializable {
     /**
      * 主键编号
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    private String id;
 
     /**
      * 员工姓名
@@ -83,11 +83,11 @@ public class Emp implements Serializable {
 		this.roleId = roleId;
 	}
 
-	public Integer getId() {
+	public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

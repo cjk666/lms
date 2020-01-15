@@ -22,8 +22,8 @@ public class Driver implements Serializable {
     /**
      * 主键编号
      */
-    @TableId(value = "driver_id", type = IdType.AUTO)
-    private Integer driverId;
+    @TableId(value = "driver_id", type = IdType.ASSIGN_UUID)
+    private String driverId;
 
     /**
      * 司机姓名
@@ -61,11 +61,11 @@ public class Driver implements Serializable {
     private Date createTime;
 
 
-    public Integer getDriverId() {
+    public String getDriverId() {
         return driverId;
     }
 
-    public void setDriverId(Integer driverId) {
+    public void setDriverId(String driverId) {
         this.driverId = driverId;
     }
 

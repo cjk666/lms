@@ -17,66 +17,101 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 		    elem: '#date1'
 		  });
 		
-		table.render({
+	//方法级渲染
+	  table.render({
 		    elem: '#test'
 		    ,id: 'order'
-		    ,url:'/lms/order/queryByPage'
 		    ,method: 'post'
 		    ,toolbar: '#toolbarDemo'
-		    ,title: '用户数据表'
-		    ,totalRow: true
-		    ,cellMinWidth: 10
+	    	,height: 'full-40'
+		    ,cellMinWidth: 60
+		    ,url: '/lms/order/queryByPage'
 		    ,cols: [[
-		       {type: 'checkbox', fixed: 'left'}
-		      ,{field:'orderId', title:'订单号'}
-		      ,{field:'sendSite', title:'发货地址'}
-		      ,{field:'receSite', title:'收货地址'}
-		      ,{field:'sendName', title:'发货人'}
-		      ,{field:'sendUnit', title:'发货单位'}
-		      ,{field:'sendPhone', title:'发货人电话'}
-		      ,{field:'sendDate', title:'发货日期'}
-		      ,{field:'receName', title:'收货人'}
-		      ,{field:'receUnit', title:'收货单位'}
-		      ,{field:'recePhone', title:'收货人电话'}
-		      ,{field:'totalFee', title:'总计费用'}
-		      ,{field:'remark', title:'备注'}
-		      ,{field:'createTime', title:'创建时间'}
-		      ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+		    	   {type: 'checkbox', fixed: 'left'}
+			      ,{field:'orderId', title:'订单号'}
+			      ,{field:'sendSite', title:'寄件地址', width:250}
+			      ,{field:'receSite', title:'收件地址', width:250}
+			      ,{field:'sendName', title:'寄件人'}
+			      ,{field:'sendUnit', title:'寄件单位', width:100}
+			      ,{field:'sendPhone', title:'寄件人电话', width:100}
+			      ,{field:'receName', title:'收件人'}
+			      ,{field:'receUnit', title:'收件单位', width:100}
+			      ,{field:'recePhone', title:'收件人电话', width:100}
+			      ,{field:'remark', title:'备注'}
+			      ,{field:'orderStatue', title:'订单状态', width:90}
+			      ,{field:'createTime', title:'创建时间', width:170}
+			      ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
 		    ]]
 		    ,page: true
 		    ,limit: 20
-		  })
+		    ,toolbar: '#toolbarDemo'
+	  });
+		
+	  //模糊查询表格重载
+	  active = {
+			    reload: function(){
+			      var id = $('#id');
+			      var sendPhone = $('#sendPhone');
+			      var recePhone = $('#recePhone');
+			      
+			      //执行重载
+			      table.reload('order', {
+			        page: {
+			          curr: 1 //重新从第 1 页开始
+			        }
+			        ,where: {
+			            orderId: id.val(),
+			        	sendPhone: sendPhone.val(),
+			        	recePhone: recePhone.val()
+			        }
+			      }, 'data');
+			    }
+		};
+	  $('.demoTable .layui-btn').on('click', function(){
+		  var type = $(this).data('type');
+		  active[type] ? active[type].call(this) : '';
+	  });
+			  
 	  
-	  //工具栏事件
+	//工具栏事件
 	  table.on('toolbar(test)', function(obj){
-	    var checkStatus = table.checkStatus('user');
-	    var data = checkStatus.data;
+	    var checkStatus = table.checkStatus('order');
+	    var data = checkStatus.data;  
 	    switch(obj.event){
-	    //添加数据
 	      case 'add':
-			title = "新增数据";
-			url = "add";
-			openDialog();
-	        break;
-	    //批量添加
-	      case 'addMore':
-			url = "addMore";
-			layui.msg('addMore');
-			openDialog();
-	        break;
-	    //批量删除
+	    	  openDialog();
+	    	  url='add';
+	    	  title='新增订单';
+	      break;
 	      case 'deleteMore':
-			url = "deleteMore";
-			layui.msg('批量删除');
-	        break;
-	   //分配角色
-	      case 'saveRole':
-			url = "saveRole";
-			layer.msg(data[0].id);
-	        break;
+		    	var ids = '';
+		        for (var i = 0; i < data.length; i++) {
+					ids += data[i].orderId+',';
+				}
+		        layer.confirm('真的删除'+data.length+'条数据么',function(){
+		        	$.ajax({
+			        	url:"/lms/order/deleteMore?ids="+ids,
+			        	type:'post',
+			        	dataType:'json',
+			        	success : function(data) {
+							if (data.statue == 0) {
+								layer.close(layer.index);
+								layer.msg(data.msg);
+								table.reload('order');
+							} else {
+								layer.msg(data.msg);
+							}
+						}
+			        });
+		        });
+		        
+	      break;
+	      case 'addMore':
+	        layer.msg(checkStatus.isAll ? '全选': '未全选')
+	      break;
 	    };
 	  });
-	  
+	
 	  //打开窗口
 	  function openDialog() {
 			// 显示更新学生表单的弹出层
@@ -162,11 +197,10 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 					"sendName" :data.sendName,
 					"sendUnit" :data.sendUnit,	
 					"sendPhone" :data.sendPhone,	
-					"sendDate" :data.sendDate,	
 					"receName" :data.receName,	
 					"receUnit" :data.receUnit,	
 					"recePhone" :data.recePhone,	
-					"totalFee" :data.totalFee,	
+					"orderStatue" :data.orderStatue,	
 					"remark" :data.remark
 				});
 				title = "编辑数据	";
