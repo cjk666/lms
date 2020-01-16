@@ -25,4 +25,14 @@ public class Index {
 	public String cargo() {
 		return "cargo";
 	}
+	
+	@RequestMapping("/client")
+	public String client() {
+		return "client";
+	}
+	
+	@RequestMapping("/clientVip")
+	public String clientVip() {
+		return "clientVip";
+	}
 }

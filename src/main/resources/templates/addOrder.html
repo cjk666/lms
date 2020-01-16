@@ -6,15 +6,15 @@
 </head>
 	<!-- layui -->
 	<link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css" media="all" th:href="@{/layui/css/layui.css}" />
-	<script type="text/javascript" src="../static/layui/layui.js"  th:src="@{/layui/layui.js}"></script>
 	<!-- js -->
-	<script type="text/javascript" src="../static/js/order.js"  th:src="@{/js/order.js}"></script>
 <body>
 	
 	<div id="user-layer" padding: 20px">
-		<form id="form" class="layui-form layui-form-pane" lay-filter="form">
+		<form action="/lms/order/add" id="form" class="layui-form layui-form-pane" lay-filter="form">
 		
 			<input type="hidden" name="orderId" class="layui-input"/>
+			<!-- 隐藏域 默认是：  0订单已确认 -->
+			<input type="hidden" name="orderStatue" value="1" class="layui-input"/>
 			
 			<div class="layui-form-item">
 				<label class="layui-form-label">寄件地址</label>
@@ -47,12 +47,6 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">寄件时间</label>
-			    <div class="layui-input-block">
-			        <input type="text" name="sendDate" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
-			    </div>
-			</div>
-			<div class="layui-form-item">
 				<label class="layui-form-label">收件人</label>
 				<div class="layui-input-block">
 					<input type="text" name="receName" class="layui-input" lay-verify="required" autocomplete="off" />
@@ -78,7 +72,7 @@
 			</div>
 			 <div class="layui-form-item">
 			    <div class="layui-input-block">
-			      <button class="layui-btn" lay-submit="lay-submit" lay-filter="save_form">立即提交</button>
+			      <button type="submit" class="layui-btn" lay-submit="lay-submit" lay-filter="save_form">立即提交</button>
 			      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
 			    </div>
 			 </div>

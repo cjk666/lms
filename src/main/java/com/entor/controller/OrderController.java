@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -33,7 +34,7 @@ import com.entor.service.IOrderService;
  * @author cjk
  * @since 2020-01-06
  */
-@Controller
+@RestController
 @RequestMapping("/order")
 public class OrderController {
 	
@@ -41,7 +42,6 @@ public class OrderController {
 	private IOrderService orderService;
 	
 	@RequestMapping("add")
-	@ResponseBody
 	public Result add(Order order) {
 		order.setCreateTime(new Date());
 		orderService.save(order);
@@ -61,14 +61,12 @@ public class OrderController {
 	}
 	
 	@RequestMapping("deleteById")
-	@ResponseBody
-	public Result deleteById(int id) {
+	public Result deleteById(String id) {
 		orderService.removeById(id);
 		return new Result(0,"删除成功！");
 	}
 	
 	@RequestMapping("deleteMore")
-	@ResponseBody
 	public Result deleteMore(String ids) {
 		List<String> list = Arrays.asList(ids.split(","));
 		orderService.removeByIds(list);
@@ -76,7 +74,6 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/queryByPage")
-	@ResponseBody
 	public Map<String, Object> queryByPage(@RequestParam(value="limit",required=false,defaultValue="20") int pageSize,
 			@RequestParam(value="page",required=false,defaultValue="1") int currentPage
 			,String orderId, String sendPhone, String recePhone) {
@@ -84,6 +81,7 @@ public class OrderController {
 		qw.like(is(orderId) ,"order_id", orderId);
 		qw.like(is(sendPhone) ,"send_phone", sendPhone);
 		qw.like(is(recePhone),"rece_phone", recePhone);
+		qw.orderByAsc("create_time");
 		Page<Order> page = new Page<>(currentPage, pageSize);
 		Page<Order> list = orderService.page(page,qw);
 		Map<String, Object> map = new HashMap<>();

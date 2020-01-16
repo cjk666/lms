@@ -106,9 +106,18 @@
 	</script>
 	<script type="text/html" id="toolbarDemo">
   		<div class="layui-btn-container">
-    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="add" data-anim="layui-anim-scale">新增订单</button>
-    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="deleteMore" data-anim="layui-anim-scale">批量删除</button>
-    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="addMore" data-anim="layui-anim-scale">批量导入</button>
+    		<button class="layui-btn layui-btn-sm layui-anim" lay-event="add" data-anim="layui-anim-scale">
+				<i class="layui-icon layui-icon-add-circle" style="font-size: 30px; color: #FFF;"></i>
+				新增订单
+			</button>
+    		<button class="layui-bg-orange layui-btn layui-btn-sm layui-anim" lay-event="deleteMore" data-anim="layui-anim-scale">
+				<i class="layui-icon layui-icon-delete" style="font-size: 30px; color: #FFF;"></i>
+				批量删除
+			</button>
+    		<button style="background-color: #1E9FFF;" class="layui-btn layui-btn-sm layui-anim" lay-event="check" data-anim="layui-anim-scale">
+				<i class="layui-icon layui-icon-ok" style="font-size: 30px; color: #FFF;"></i> 
+				订单确认
+			</button>
   		</div>
 	</script>
 </body>

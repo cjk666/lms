@@ -29,14 +29,12 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 		    ,cols: [[
 		    	   {type: 'checkbox', fixed: 'left'}
 			      ,{field:'orderId', title:'订单号'}
-			      ,{field:'sendSite', title:'寄件地址', width:250}
-			      ,{field:'receSite', title:'收件地址', width:250}
 			      ,{field:'sendName', title:'寄件人'}
-			      ,{field:'sendUnit', title:'寄件单位', width:100}
 			      ,{field:'sendPhone', title:'寄件人电话', width:100}
+			      ,{field:'sendSite', title:'寄件地址', width:250}
 			      ,{field:'receName', title:'收件人'}
-			      ,{field:'receUnit', title:'收件单位', width:100}
 			      ,{field:'recePhone', title:'收件人电话', width:100}
+			      ,{field:'receSite', title:'收件地址', width:250}
 			      ,{field:'remark', title:'备注'}
 			      ,{field:'orderStatue', title:'订单状态', width:90}
 			      ,{field:'createTime', title:'创建时间', width:170}
@@ -53,7 +51,6 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 			      var id = $('#id');
 			      var sendPhone = $('#sendPhone');
 			      var recePhone = $('#recePhone');
-			      
 			      //执行重载
 			      table.reload('order', {
 			        page: {
@@ -82,8 +79,13 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 	    	  openDialog();
 	    	  url='add';
 	    	  title='新增订单';
+	    	  $("button[type='reset']").trigger("click");//清空表单
 	      break;
 	      case 'deleteMore':
+	    	  if (data.length == 0) {
+	    		  layer.msg('请选择数据');
+	    		  return;
+	    	  }
 		    	var ids = '';
 		        for (var i = 0; i < data.length; i++) {
 					ids += data[i].orderId+',';
@@ -106,8 +108,8 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 		        });
 		        
 	      break;
-	      case 'addMore':
-	        layer.msg(checkStatus.isAll ? '全选': '未全选')
+	      case 'check':
+	    	  
 	      break;
 	    };
 	  });
@@ -124,31 +126,29 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 			});
 		}
 	// 添加表单提交
-		form.on('submit(save_form)',
-				function(data) {
-					// ajax方式添加学生
-					$.ajax({
-						url : "/lms/order/" + url,
-						type : "POST",
-						data : data.field,
-						// contentType: 'application/json',
-						dataType : 'json',
-						success : function(data) {
-							if (data.statue == 0) {
-								layer.close(layer.index);
-								layer.msg(data.msg);
-								table.reload('order');
-							} else {
-								layer.msg(data.msg);
-							}
-						},
-						error : function() {
-							console.log("ajax error");
-						}
-					});
-					// 阻止表单跳转
-					return false;
-			   });
+		form.on('submit(save_form)',function(data) {
+			// ajax方式添加学生
+			$.ajax({
+				url : "/lms/order/" + url,
+				type : "POST",
+				data : data.field,
+				dataType : 'json',
+				success : function(data) {
+					if (data.statue == 0) {
+						layer.close(layer.index);
+						layer.msg(data.msg);
+						table.reload('order');
+					} else {
+						layer.msg(data.msg);
+					}
+				},
+				error : function() {
+					console.log("ajax error");
+				}
+			});
+			// 阻止表单跳转
+			return false;
+		});
 	//监听行单击事件（双击事件为：rowDouble）
 	  table.on('row(test)', function(obj){
 	    //标注选中样式
@@ -167,28 +167,27 @@ layui.use([ 'jquery', 'table', 'layer', 'form', 'laydate' ],
 		  table.on('tool(test)', function(obj){
 		    var data = obj.data;
 		    if(obj.event === 'del'){
-		      layer.confirm('真的删除行么', function(index){
-		        //obj.del();
-		        //location.href = '/admin/deleteById?id='+data.id;
-		        $.ajax({
-						url : "/lms/order/deleteById?id="+data.orderId,
-						type : "POST",
-						dataType : 'json',
-						success : function(data) {
-							if (data.statue == 0) {
-								layer.close(layer.index);
-								layer.msg(data.msg);
-								obj.del();
-							} else {
-								layer.msg('删除失败,'+data.msg);
+			      layer.confirm('真的删除行么', function(index){
+			        //obj.del();
+			        //location.href = '/admin/deleteById?id='+data.id;
+			        $.ajax({
+							url : "/lms/order/deleteById?id="+data.orderId,
+							type : "POST",
+							dataType : 'json',
+							success : function(data) {
+								if (data.statue == 0) {
+									layer.close(layer.index);
+									layer.msg(data.msg);
+									table.reload('order');
+								} else {
+									layer.msg('删除失败,'+data.msg);
+								}
+							},
+							error : function() {
+								console.log("ajax error");
 							}
-						},
-						error : function() {
-							console.log("ajax error");
-						}
-					});
-		      });
-		      table.reload('test');
+						});
+			      });
 		    } else if(obj.event === 'edit'){
 		    	form.val('form', {
 		    		"orderId" : data.orderId,

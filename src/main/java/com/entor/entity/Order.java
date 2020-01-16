@@ -41,10 +41,6 @@ public class Order implements Serializable {
      */
     private String sendName;
 
-    /**
-     * 发货人单位
-     */
-    private String sendUnit;
 
     /**
      * 发货人联系电话
@@ -56,10 +52,6 @@ public class Order implements Serializable {
      */
     private String receName;
 
-    /**
-     * 收货单位
-     */
-    private String receUnit;
 
     /**
      * 收货人联系电话
@@ -117,13 +109,6 @@ public class Order implements Serializable {
         this.sendName = sendName;
     }
 
-    public String getSendUnit() {
-        return sendUnit;
-    }
-
-    public void setSendUnit(String sendUnit) {
-        this.sendUnit = sendUnit;
-    }
 
     public String getSendPhone() {
         return sendPhone;
@@ -139,14 +124,6 @@ public class Order implements Serializable {
 
     public void setReceName(String receName) {
         this.receName = receName;
-    }
-
-    public String getReceUnit() {
-        return receUnit;
-    }
-
-    public void setReceUnit(String receUnit) {
-        this.receUnit = receUnit;
     }
 
     public String getRecePhone() {
@@ -184,8 +161,8 @@ public class Order implements Serializable {
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", sendSite=" + sendSite + ", receSite=" + receSite + ", sendName="
-				+ sendName + ", sendUnit=" + sendUnit + ", sendPhone=" + sendPhone + ", receName=" + receName
-				+ ", receUnit=" + receUnit + ", recePhone=" + recePhone + ", orderStatue=" + orderStatue + ", remark="
+				+ sendName + ", sendPhone=" + sendPhone + ", receName=" + receName
+				+ ", recePhone=" + recePhone + ", orderStatue=" + orderStatue + ", remark="
 				+ remark + ", createTime=" + createTime + "]";
 	}
     
